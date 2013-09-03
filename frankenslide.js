@@ -454,8 +454,8 @@
     $(target).css({'-webkit-transform':'translateZ(0)'});
 
     this.gesturing = false;
-    $(target)[0].addEventListener('touchstart', this, false);
-    $(target)[0].addEventListener('webkitTransitionEnd', this, false);
+    target.addEventListener('touchstart', this, false);
+    target.addEventListener('webkitTransitionEnd', this, false);
   };
 
   // Proxy the events triggered on the element to another function.
@@ -550,18 +550,19 @@
       this.startSlide = this.currentSlide;
       this.moved = false;
 
-      window.addEventListener('gesturestart', this, false);
-      window.addEventListener('gestureend', this, false);
-      window.addEventListener('touchmove', this, false);
-      window.addEventListener('touchend', this, false);
+      document.addEventListener('gesturestart', this, false);
+      document.addEventListener('gestureend', this, false);
+      document.addEventListener('touchstart', this, false);
+      document.addEventListener('touchmove', this, false);
+      document.addEventListener('touchend', this, false);
+      document.addEventListener('touchcancel', this, false);
       this.element[0].addEventListener('click', this, false);
 
-      //this.element.trigger('start.frankenslide');
-      //console.profileEnd('touchstart');
-    },
+      e.preventDefault();
+      return false;
+   },
 
     touchmove: function(e) {
-      //console.profile('touchmove');
       if (this.gesturing) { return false; }
 
       this.decayOff();
@@ -572,8 +573,6 @@
         if (deltaY < deltaX) {
           e.preventDefault();
         }
-
-        //this.element.trigger('firstSlide.frankenslide');
       }
 
       this.moved = true;
@@ -585,16 +584,15 @@
 
       this.update({animate: false});
       this.lastDate = new Date();
-      //console.profileEnd('touchmove');
+      return false;
     },
 
-    touchend: function(e) {
-      //console.log(new Date() - this.lastDate);
-      //console.profile('fingerup');
-      window.removeEventListener('gesturestart', this, false);
-      window.removeEventListener('gestureend', this, false);
-      window.removeEventListener('touchmove', this, false);
-      window.removeEventListener('touchend', this, false);
+    touchend: function() {
+      document.removeEventListener('gesturestart', this, false);
+      document.removeEventListener('gestureend', this, false);
+      document.removeEventListener('touchmove', this, false);
+      document.removeEventListener('touchend', this, false);
+      document.removeEventListener('touchcancel', this, false);
       if (this.moved) {
         var dx = this.position.x - this.lastPosition.x;
         var dt = (new Date()) - this.lastMoveTime + 1;
@@ -643,7 +641,7 @@
       }
 
       this.currentTarget = undefined;
-      //console.profileEnd('fingerup');
+      return false;
     },
 
     gesturestart: function(e) {
