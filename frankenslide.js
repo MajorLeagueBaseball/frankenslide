@@ -550,12 +550,12 @@
       this.startSlide = this.currentSlide;
       this.moved = false;
 
-      document.addEventListener('gesturestart', this, false);
-      document.addEventListener('gestureend', this, false);
-      document.addEventListener('touchstart', this, false);
-      document.addEventListener('touchmove', this, false);
-      document.addEventListener('touchend', this, false);
-      document.addEventListener('touchcancel', this, false);
+      window.addEventListener('gesturestart', this, false);
+      window.addEventListener('gestureend', this, false);
+      window.addEventListener('touchmove', this, false);
+      window.addEventListener('touchend', this, false);
+      window.addEventListener('touchcancel', this, false);
+      
       this.element[0].addEventListener('click', this, false);
 
       e.preventDefault();
@@ -588,11 +588,11 @@
     },
 
     touchend: function() {
-      document.removeEventListener('gesturestart', this, false);
-      document.removeEventListener('gestureend', this, false);
-      document.removeEventListener('touchmove', this, false);
-      document.removeEventListener('touchend', this, false);
-      document.removeEventListener('touchcancel', this, false);
+      window.removeEventListener('gesturestart', this, false);
+      window.removeEventListener('gestureend', this, false);
+      window.removeEventListener('touchmove', this, false);
+      window.removeEventListener('touchend', this, false);
+      window.removeEventListener('touchcancel', this, false);
       if (this.moved) {
         var dx = this.position.x - this.lastPosition.x;
         var dt = (new Date()) - this.lastMoveTime + 1;
