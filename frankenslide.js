@@ -555,10 +555,9 @@
       window.addEventListener('touchmove', this, false);
       window.addEventListener('touchend', this, false);
       window.addEventListener('touchcancel', this, false);
-      
+
       this.element[0].addEventListener('click', this, false);
 
-      e.preventDefault();
       return false;
    },
 
@@ -572,6 +571,10 @@
         var deltaX = Math.abs(e.touches[0].pageX - this.startPosition.x - this.position.x);
         if (deltaY < deltaX) {
           e.preventDefault();
+          this.startEvent.preventDefault();
+        } else {
+          TouchEvents.touchend();
+          return;
         }
       }
 
