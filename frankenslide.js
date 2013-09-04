@@ -450,12 +450,13 @@
       animateDuration: 1000,
       tossing: false
     }, this.opts);
-    $(target).addClass('frankenslide-slider-touch');
-    $(target).css({'-webkit-transform':'translateZ(0)'});
+    var $target = $(target);
+    $target.addClass('frankenslide-slider-touch');
+    $target.css({'-webkit-transform':'translateZ(0)'});
 
     this.gesturing = false;
-    target.addEventListener('touchstart', this, false);
-    target.addEventListener('webkitTransitionEnd', this, false);
+    $target[0].addEventListener('touchstart', this, false);
+    $target[0].addEventListener('webkitTransitionEnd', this, false);
   };
 
   // Proxy the events triggered on the element to another function.
@@ -571,7 +572,6 @@
         var deltaX = Math.abs(e.touches[0].pageX - this.startPosition.x - this.position.x);
         if (deltaY < deltaX) {
           e.preventDefault();
-          this.startEvent.preventDefault();
         } else {
           TouchEvents.touchend();
           return;
