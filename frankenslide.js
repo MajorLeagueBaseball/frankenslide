@@ -661,6 +661,8 @@
     }
   };
 
+  TouchEvents.touchcancel = TouchEvents.touchend;
+
   Frankenslide.BaseSlider = BaseSlider;
   Frankenslide.TouchSlider = TouchSlider;
 
