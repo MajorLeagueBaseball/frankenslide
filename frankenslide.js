@@ -493,6 +493,9 @@
     var options = $.extend({animate: true, triggerSlide: true}, opts);
     if (options.animate) { this.decayOn(opts && opts.easing); }
     this.element.css({'-webkit-transform': 'translate3d(' + this.position.x + 'px, 0, 0)'}); 
+    if (!options.animate) {
+      this.lazyLoadNextFrame();
+    }
     if (options.triggerSlide) {
       this.element.trigger('move.frankenslide');
     }
