@@ -50,21 +50,23 @@
 	  		slidesPerPage = slider.slidesPerPage(),
 	  		slideWithClass = whichSlideHasClass();
 	  		
-	  		//console.log('cs+sPp:' + (currentSlide+slidesPerPage) + " <= " + 'swc: ' + slideWithClass);
-	  	if (!pageBool) {
-	  		//scroll to slide with class
-		  	slider.to(slideWithClass);
-		} else if(currentSlide > slideWithClass && retreatToPrevious) {
-			//if user has advanced pages past class
-			slider.to(slideWithClass);
-	  	} else {
-		  	if (currentSlide+slidesPerPage <= slideWithClass) {
-		  		//only slide if class is off the page
+	    //console.log('cs+sPp:' + (currentSlide+slidesPerPage) + " <= " + 'swc: ' + slideWithClass);
+	  	if (slideWithClass === 0) {
+	  		slider.to(0);
+	  	} else if (!pageBool) {
+		  		//scroll to slide with class
 			  	slider.to(slideWithClass);
-		  	}
-	  	}
+		} else if(currentSlide > slideWithClass && retreatToPrevious) {
+				//if user has advanced pages past class
+				slider.to(slideWithClass);
+		} else {
+			  	if (currentSlide+slidesPerPage <= slideWithClass) {
+			  		//only slide if class is off the page
+				  	slider.to(slideWithClass);
+			  	}
+		 }
     }    
-    	//do not attach this extension to any slider move events or you will be sorry
+    //do not attach this extension to any slider move events or you will be sorry
   };
   return exports;
 });
