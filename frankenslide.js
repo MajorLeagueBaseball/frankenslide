@@ -28,6 +28,7 @@
 })(function($) {
   var ua = navigator.userAgent.toLowerCase();
   var isWebkit = !! ua.match(/applewebkit/i);
+  var isWindow = !! ua.match(/windows/i);
   var supportsTouch = "ontouchmove" in window;
 
   var cssWithoutUnit = function(element, attribute) {
@@ -53,7 +54,7 @@
 
 
   var Frankenslide = function() {
-    if (supportsTouch && isWebkit) {
+    if (supportsTouch && isWebkit && !isWindow) {
       return new TouchSlider();
     } else {
       return new BaseSlider();
@@ -129,7 +130,7 @@
 
     var self = this;
 
-    var type = supportsTouch ? 'touchstart' : 'click';
+    var type = supportsTouch && !isWindow ? 'touchstart' : 'click';
     $(this.opts.next).on(type, function(e) {
       e.preventDefault();
       self.next();
@@ -155,15 +156,15 @@
 
     // Keep clicks from doing what they do if
     // we support touch on this device
-    if (supportsTouch) {
-      $(this.opts.next).click(function(e) {
-        e.preventDefault();
-      });
+    // if (supportsTouch) {
+    //   $(this.opts.next).click(function(e) {
+    //     e.preventDefault();
+    //   });
 
-      $(this.opts.previous).click(function(e) {
-        e.preventDefault();
-      });
-    }
+    //   $(this.opts.previous).click(function(e) {
+    //     e.preventDefault();
+    //   });
+    // }
 
     // Bind callbacks passed in at initialization
     $.each(this.opts.hooks, function(name, fn) {
