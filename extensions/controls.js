@@ -26,6 +26,9 @@
 
     function checkControls(s, i) {
 
+        if( !s.currentSlide ) {
+            s = slider;
+        }
 	    var currentSlide = s.currentSlide;
 	  	var slideCount = s.slideCount()-1; //slide count uses returns integer count
 	  	var slidesPerPage = s.slidesPerPage();
@@ -50,8 +53,8 @@
 		checkControls(slider);
 	}
 	
-   slider.on('move.frankenslide', checkControls);
     
+   slider.element.on('move.frankenslide', checkControls);
   };
 
   return exports;
