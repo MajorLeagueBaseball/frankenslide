@@ -30,7 +30,10 @@
     function whichSlideHasClass() {
 	    var slideWithClass;
 
-	  	var slides = slider.element[0].childNodes;
+        // Note: Using children instead of childNodes to
+        //       restrict results to element nodes
+        // slides = slider.element[0].childNodes;
+        slides = slider.element[0].children;
 
 	  	$.each(slides, function(i, e) {
 		  	if ($(e).hasClass(className)) {
